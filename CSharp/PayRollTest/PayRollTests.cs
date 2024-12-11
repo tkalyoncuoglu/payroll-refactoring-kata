@@ -10,9 +10,9 @@ public class PayRollTests
     [Test]
     public void without_bonus()
     {
-        var employee = new Employee(100, false, false);
+        var employee = Employee.CreateEmployee(100, false, false, 30);
         
-        var payCheck  = PayRollApplication.PayAmount(employee, 30);
+        var payCheck  = PayRollApplication.PayAmount(employee);
         
         Assert.AreEqual(new PayCheck(3000, "EMP"), payCheck);
     }
@@ -20,9 +20,9 @@ public class PayRollTests
     [Test]
     public void with_bonus()
     {
-        var employee = new Employee(10, false, false);
+        var employee = Employee.CreateEmployee(10, false, false, 41);
         
-        var payCheck  = PayRollApplication.PayAmount(employee, 41);
+        var payCheck  = PayRollApplication.PayAmount(employee);
         
         Assert.AreEqual(new PayCheck(1410, "EMP"), payCheck);
     }
@@ -30,9 +30,9 @@ public class PayRollTests
     [Test]
     public void retired()
     {
-        var employee = new Employee(IRRELEVANT, false, true);
+        var employee = Employee.CreateEmployee(IRRELEVANT, false, true, IRRELEVANT);
         
-        var payCheck  = PayRollApplication.PayAmount(employee, IRRELEVANT);
+        var payCheck  = PayRollApplication.PayAmount(employee);
         
         Assert.AreEqual(new PayCheck(0, "RET"), payCheck);
     }
@@ -40,9 +40,9 @@ public class PayRollTests
     [Test]
     public void separated()
     {
-        var employee = new Employee(IRRELEVANT, true, false);
+        var employee = Employee.CreateEmployee(IRRELEVANT, true, false, IRRELEVANT);
         
-        var payCheck  = PayRollApplication.PayAmount(employee, IRRELEVANT);
+        var payCheck  = PayRollApplication.PayAmount(employee);
         
         Assert.AreEqual(new PayCheck(0, "SEP"), payCheck);
     }

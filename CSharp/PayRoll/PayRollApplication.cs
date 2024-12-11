@@ -2,65 +2,27 @@
 
 public static class PayRollApplication
 {
-    public static PayCheck PayAmount(Employee employee, int workHours)
+    public static PayCheck PayAmount(IEmployee employee)
     {
-        PayCheck result;
-        if (!employee.IsSeparated())
-        {
-            if (employee.IsRetired())
-            {
-                result = new PayCheck(0, "RET");
-            }
-            else
-            {
-                // logic to compute amount
-                var bonus = ComputeBonus(employee, workHours);
-                var regularAmount = ComputeRegularPayAmount(employee, workHours);
-                var amount = bonus + regularAmount;
-                result = new PayCheck(amount, "EMP");
-            }
-        }
-        else
-        {
-            result = new PayCheck(0, "SEP");
-        }
-
-        return result;
+        return new PayCheck(employee);
     }
 
-    private static decimal ComputeBonus(Employee employee, int workHours)
-    {
-        return workHours > 40 ? 1000 : 0;
-    }
-
-    private static decimal ComputeRegularPayAmount(Employee employee, decimal workHours)
-    {
-        return employee.Rate * workHours;
-    }
+    
 }
 
 public class Employee
 {
-    public int Rate { get; }
-    private readonly bool _separated;
-    private readonly bool _retired;
-
-    public Employee(int rate, bool separated, bool retired)
+    
+    public static IEmployee CreateEmployee(int rate, bool separated, bool retired, int workHours)
     {
-        Rate = rate;
-        _separated = separated;
-        _retired = retired;
+        if (separated)
+            return new Separated();
+        else if(retired)
+            return new Retired();
+        return new Employed(rate, workHours);
     }
 
-    public bool IsSeparated()
-    {
-        return _separated;
-    }
-
-    public bool IsRetired()
-    {
-        return _retired;
-    }
+    
 }
 
 public class PayCheck
@@ -68,10 +30,16 @@ public class PayCheck
     private decimal Amount { get; }
     private string ReasonCode { get; }
 
-    public PayCheck(decimal amount, string reasonCode)
+    public PayCheck(IEmployee employee)
+    {
+        Amount = employee.CalculatePayAmount();
+        ReasonCode = employee.Abbrv;
+    }
+
+    public PayCheck(decimal amount, string reaseonCode)
     {
         Amount = amount;
-        ReasonCode = reasonCode;
+        ReasonCode = reaseonCode;
     }
 
     public override string ToString()
