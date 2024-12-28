@@ -9,24 +9,22 @@ namespace PayRoll
 {
     public class Employee
     {
-        public Employee(EmployedData? employedData, OneOf<Func<EmployedData, decimal>, Func<decimal>> f)
+        public Employee(string abbrv, EmployedData? employedData, OneOf<Func<EmployedData, decimal>, Func<decimal>> f)
         {
             Data = employedData;
 
             PayCheckBehavior = f;
-        }
-        public class EmployedData
-        {
-            public decimal Rate { get; set; }
 
-            public int WorkHours { get; set; }
+            Abbrv = abbrv;
         }
+       
+        public string Abbrv { get; private set; }
 
         private OneOf<Func<EmployedData, decimal>, Func<decimal>> PayCheckBehavior;
 
         public EmployedData? Data {  get; private set; }
 
-        public decimal Paycheck()
+        public decimal CalculatePayAmount()
         {
             return PayCheckBehavior.Match(f => f(Data), f => f());
         }

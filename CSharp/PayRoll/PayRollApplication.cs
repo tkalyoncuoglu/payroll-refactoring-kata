@@ -2,7 +2,7 @@
 
 public static class PayRollApplication
 {
-    public static PayCheck PayAmount(IEmployee employee)
+    public static PayCheck PayAmount(Employee employee)
     {
         return new PayCheck(employee);
     }
@@ -17,7 +17,7 @@ public class PayCheck
     private decimal Amount { get; }
     private string ReasonCode { get; }
 
-    public PayCheck(IEmployee employee)
+    public PayCheck(Employee employee)
     {
         Amount = employee.CalculatePayAmount();
         ReasonCode = employee.Abbrv;

@@ -6,21 +6,27 @@ using System.Threading.Tasks;
 
 namespace PayRoll
 {
-    internal class Functions
+    public class EmployedData
     {
-        public static double RetiredPaycheck()
+        public decimal Rate { get; set; }
+
+        public int WorkHours { get; set; }
+    }
+    public static class Functions
+    {
+        public static decimal RetiredPaycheck()
         {
             return 0;
         }
 
-        public static double SeparatedPaycheck()
+        public static decimal SeparatedPaycheck()
         {
             return 0;
         }
 
-        public static decimal EmployedPayAmount(int workHours, decimal rate)
+        public static decimal EmployedPaycheck(EmployedData data)
         {
-            return ComputeBonus(workHours) + ComputeRegularPayAmount(workHours, rate);
+            return ComputeBonus(data.WorkHours) + ComputeRegularPayAmount(data.WorkHours, data.Rate);
         }
 
         private static decimal ComputeBonus(int workHours)
