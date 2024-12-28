@@ -12,7 +12,7 @@ public class PayRollTests
     [Test]
     public void without_bonus()
     {
-        var employee = new Employee("EMP", new EmployedData() { WorkHours = 30, Rate = 100 }, (System.Func<EmployedData, decimal>) (Functions.EmployedPaycheck));
+        var employee = new Employee("EMP", new EmployedData() { WorkHours = 30, Rate = 100 }, (PayRollBehavior) Functions.EmployedPaycheck);
         
         var payCheck  = PayRollApplication.PayAmount(employee);
         
@@ -22,7 +22,7 @@ public class PayRollTests
     [Test]
     public void with_bonus()
     {
-        var employee = new Employee("EMP", new EmployedData() { WorkHours = 41, Rate = 10 }, (System.Func<EmployedData, decimal>)(Functions.EmployedPaycheck));
+        var employee = new Employee("EMP", new EmployedData() { WorkHours = 41, Rate = 10 }, (PayRollBehavior) Functions.EmployedPaycheck);
         
         var payCheck  = PayRollApplication.PayAmount(employee);
         

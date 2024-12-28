@@ -9,7 +9,7 @@ namespace PayRoll
 {
     public class Employee
     {
-        public Employee(string abbrv, EmployedData? employedData, OneOf<Func<EmployedData, decimal>, Func<decimal>> f)
+        public Employee(string abbrv, EmployedData? employedData, PayRollBehavior f)
         {
             Data = employedData;
 
@@ -20,7 +20,7 @@ namespace PayRoll
        
         public string Abbrv { get; private set; }
 
-        private OneOf<Func<EmployedData, decimal>, Func<decimal>> PayCheckBehavior;
+        private PayRollBehavior PayCheckBehavior;
 
         public EmployedData? Data {  get; private set; }
 

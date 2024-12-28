@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OneOf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace PayRoll
 {
+    [GenerateOneOf]
+    public partial class PayRollBehavior : OneOfBase<Func<EmployedData, decimal>, Func<decimal>> 
+    {
+    }
     public class EmployedData
     {
         public decimal Rate { get; set; }
