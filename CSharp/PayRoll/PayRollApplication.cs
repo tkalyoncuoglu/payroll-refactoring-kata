@@ -10,20 +10,7 @@ public static class PayRollApplication
     
 }
 
-public class Employee
-{
-    
-    public static IEmployee CreateEmployee(int rate, bool separated, bool retired, int workHours)
-    {
-        if (separated)
-            return new Separated();
-        else if(retired)
-            return new Retired();
-        return new Employed(rate, workHours);
-    }
 
-    
-}
 
 public class PayCheck
 {
