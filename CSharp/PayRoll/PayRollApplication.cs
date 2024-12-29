@@ -2,9 +2,14 @@
 
 namespace PayRoll;
 
+
+[GenerateOneOf]
+public partial class Employee : OneOfBase<Employed, Retired, Separated> { }
+
+
 public static class PayRollApplication
 {
-    public static PayCheck PayAmount(OneOf<Employed, Retired, Separated> employee)
+    public static PayCheck PayAmount(Employee employee)
     {
         return new PayCheck(employee);
     }
@@ -19,7 +24,7 @@ public class PayCheck
     private decimal Amount { get; }
     private string ReasonCode { get; }
 
-    public PayCheck(OneOf<Employed, Retired, Separated> employee)
+    public PayCheck(Employee employee)
     {
         Amount = employee.Match(
             employed => employed.CalculatePayAmount(),
