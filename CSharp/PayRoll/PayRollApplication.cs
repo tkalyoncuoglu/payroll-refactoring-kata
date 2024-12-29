@@ -1,4 +1,5 @@
 ﻿using OneOf;
+using OneOf.Types;
 
 namespace PayRoll;
 
