@@ -10,7 +10,7 @@ public class PayRollTests
     [Test]
     public void without_bonus()
     {
-        var employee = Employee.CreateEmployee(100, false, false, 30);
+        var employee = new Employed(100, 30);
         
         var payCheck  = PayRollApplication.PayAmount(employee);
         
@@ -20,7 +20,7 @@ public class PayRollTests
     [Test]
     public void with_bonus()
     {
-        var employee = Employee.CreateEmployee(10, false, false, 41);
+        var employee = new Employed(10, 41);
         
         var payCheck  = PayRollApplication.PayAmount(employee);
         
@@ -30,7 +30,7 @@ public class PayRollTests
     [Test]
     public void retired()
     {
-        var employee = Employee.CreateEmployee(IRRELEVANT, false, true, IRRELEVANT);
+        var employee = new Retired();
         
         var payCheck  = PayRollApplication.PayAmount(employee);
         
@@ -40,7 +40,7 @@ public class PayRollTests
     [Test]
     public void separated()
     {
-        var employee = Employee.CreateEmployee(IRRELEVANT, true, false, IRRELEVANT);
+        var employee = new Separated();
         
         var payCheck  = PayRollApplication.PayAmount(employee);
         
