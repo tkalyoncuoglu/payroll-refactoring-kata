@@ -1,8 +1,10 @@
-﻿namespace PayRoll;
+﻿using OneOf;
+
+namespace PayRoll;
 
 public static class PayRollApplication
 {
-    public static PayCheck PayAmount(IEmployee employee)
+    public static PayCheck PayAmount(OneOf<Employed, Retired, Separated> employee)
     {
         return new PayCheck(employee);
     }
@@ -10,30 +12,24 @@ public static class PayRollApplication
     
 }
 
-public class Employee
-{
-    
-    public static IEmployee CreateEmployee(int rate, bool separated, bool retired, int workHours)
-    {
-        if (separated)
-            return new Separated();
-        else if(retired)
-            return new Retired();
-        return new Employed(rate, workHours);
-    }
 
-    
-}
 
 public class PayCheck
 {
     private decimal Amount { get; }
     private string ReasonCode { get; }
 
-    public PayCheck(IEmployee employee)
+    public PayCheck(OneOf<Employed, Retired, Separated> employee)
     {
-        Amount = employee.CalculatePayAmount();
-        ReasonCode = employee.Abbrv;
+        Amount = employee.Match(
+            employed => employed.CalculatePayAmount(),
+            retired => retired.CalculatePayAmount(),
+            separated => separated.CalculatePayAmount());
+
+        ReasonCode = employee.Match(
+            employed => employed.Abbrv,
+            retired => retired.Abbrv,
+            separated => separated.Abbrv);
     }
 
     public PayCheck(decimal amount, string reaseonCode)

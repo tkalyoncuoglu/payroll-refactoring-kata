@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PayRoll
 {
-    public class Employed : IEmployee
+    public class Employed 
     {
         private readonly decimal _rate;
 

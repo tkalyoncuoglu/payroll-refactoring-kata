@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PayRoll
 {
-    public class Retired : IEmployee
+    public class Retired 
     {
         public string Abbrv => "RET";
 
